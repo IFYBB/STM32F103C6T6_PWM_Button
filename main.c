@@ -181,19 +181,31 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11)==GPIO_PIN_SET)
-  {
-	  htim1.Init.Prescaler = 100; // 10 Hz
-  }
-  else
-  {
-	  htim1.Init.Prescaler = 35; // 30 Hz
-  }
-	//htim1.Init.Prescaler = 100; // 10 Hz
-	//htim1.Init.Prescaler = 35; // 30 Hz
-	//htim1.Init.Prescaler = 10; // 100 Hz
-	//htim1.Init.Prescaler = 2; // 366 Hz
-	//htim1.Init.Prescaler = 1; // 550 Hz
+    if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11)==GPIO_PIN_SET)
+    {
+  	  htim1.Init.Prescaler = 100; // 10 Hz
+    }
+    if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_10)==GPIO_PIN_SET)
+    {
+    	htim1.Init.Prescaler = 35; // 30 Hz
+    }
+    if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_1)==GPIO_PIN_SET)
+    {
+    	htim1.Init.Prescaler = 10; // 100 Hz
+    }
+    if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0)==GPIO_PIN_SET)
+    {
+    	htim1.Init.Prescaler = 2; // 366 Hz
+    }
+    else
+    {
+    	htim1.Init.Prescaler = 1; // 550 Hz
+    }
+  	//htim1.Init.Prescaler = 100; // 10 Hz
+  	//htim1.Init.Prescaler = 35; // 30 Hz
+  	//htim1.Init.Prescaler = 10; // 100 Hz
+  	//htim1.Init.Prescaler = 2; // 366 Hz
+  	//htim1.Init.Prescaler = 1; // 550 Hz
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim1.Init.Period = 65535;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -254,8 +266,8 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
-  /*Configure GPIO pin : PB11 */
-  GPIO_InitStruct.Pin = GPIO_PIN_11;
+  /*Configure GPIO pins : PB0 PB1 PB10 PB11 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_10|GPIO_PIN_11;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
