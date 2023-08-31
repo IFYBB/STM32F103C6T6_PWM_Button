@@ -185,23 +185,24 @@ static void MX_TIM1_Init(void)
   	  htim1.Init.Prescaler = 100; // 10 Hz
   	  htim1.Init.Period = 65535;
     }
+
     if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_10)==GPIO_PIN_SET)
     {
     	htim1.Init.Prescaler = 35; // 30 Hz
     	htim1.Init.Period = 65535;
     }
+
     if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_1)==GPIO_PIN_SET)
     {
-    	htim1.Init.Prescaler = 10; // 300 Hz!!!!!!!!!!!!!!!!!!!!!
-    	htim1.Init.Period = 60000;
+    	htim1.Init.Prescaler = 10; // 100 Hz
+    	htim1.Init.Period = 65100;
     }
+
     if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0)==GPIO_PIN_SET)
     {
     	htim1.Init.Prescaler = 7; // 300 Hz
     	htim1.Init.Period = 30000;
     }
-
-
     else
     {
     	htim1.Init.Prescaler = 1; // 1250 Hz
