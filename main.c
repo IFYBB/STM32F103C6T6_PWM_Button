@@ -103,7 +103,7 @@ int main(void)
 
 	  //TIM1->CCR1=1; //1us при 10 Гц
 	  //TIM1->CCR1=2; //1us при 30 Гц
-	  //TIM1->CCR1=7; //1us при 100 Гц
+	  //TIM1->CCR1=7; //1us при 10Ф0 Гц
 	  //TIM1->CCR1=25; //1us при 300 Гц
 	  //TIM1->CCR1=38; //1us при 630 Гц
 
@@ -112,6 +112,9 @@ int main(void)
 	  //TIM1->CCR1=14; //5us при 100 Гц
 	  //TIM1->CCR1=125; //5us при 300 Гц
 	  //TIM1->CCR1=180; //5us при 630 Гц
+
+	  //TIM1->CCR1=7; //10us при 10 Гц
+	  TIM1->CCR1=18; //10us при 30 Гц
 
 	  //TIM1->CCR1=70; // 1us при 1кГц
 	  //TIM1->CCR1=360; // 5us при 1кГц
@@ -178,11 +181,11 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  //htim1.Init.Prescaler = 100; // 10 Hz
+  htim1.Init.Prescaler = 100; // 10 Hz
   //htim1.Init.Prescaler = 35; // 30 Hz
   //htim1.Init.Prescaler = 10; // 100 Hz
   //htim1.Init.Prescaler = 2; // 366 Hz
-  htim1.Init.Prescaler = 1; // 550 Hz
+  //htim1.Init.Prescaler = 1; // 550 Hz
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim1.Init.Period = 65535;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
