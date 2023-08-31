@@ -99,25 +99,28 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	    if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11)==GPIO_PIN_SET)
+	    {
+	  	  htim1.Init.Prescaler = 100; // 10 Hz
+	    }
 
+	  //TIM1->CCR1=1; //1us при 10 Гц htim1.Init.Period = 65535;
+	  //TIM1->CCR1=2; //1us при 30 Гц htim1.Init.Period = 65535;
+	  //TIM1->CCR1=7; //1us при 10Ф0 Гц htim1.Init.Period = 65535;
+	  //TIM1->CCR1=25; //1us при 300 Гц htim1.Init.Period = 65535;
+	  //TIM1->CCR1=38; //1us при 630 Гц htim1.Init.Period = 65535;
 
-	  //TIM1->CCR1=1; //1us при 10 Гц
-	  //TIM1->CCR1=2; //1us при 30 Гц
-	  //TIM1->CCR1=7; //1us при 10Ф0 Гц
-	  //TIM1->CCR1=25; //1us при 300 Гц
-	  //TIM1->CCR1=38; //1us при 630 Гц
+	  //TIM1->CCR1=5; //5us при 10 Гц htim1.Init.Period = 65535;
+	  //TIM1->CCR1=10; //5us при 30 Гц htim1.Init.Period = 65535;
+	  //TIM1->CCR1=14; //5us при 100 Гц htim1.Init.Period = 65535;
+	  //TIM1->CCR1=125; //5us при 300 Гц htim1.Init.Period = 65535;
+	  //TIM1->CCR1=180; //5us при 630 Гц htim1.Init.Period = 65535;
 
-	  //TIM1->CCR1=5; //5us при 10 Гц
-	  //TIM1->CCR1=10; //5us при 30 Гц
-	  //TIM1->CCR1=14; //5us при 100 Гц
-	  //TIM1->CCR1=125; //5us при 300 Гц
-	  //TIM1->CCR1=180; //5us при 630 Гц
+	  //TIM1->CCR1=7; //10us при 10 Гц htim1.Init.Period = 65535;
+	  TIM1->CCR1=18; //10us при 30 Гц htim1.Init.Period = 65535;
 
-	  //TIM1->CCR1=7; //10us при 10 Гц
-	  TIM1->CCR1=18; //10us при 30 Гц
-
-	  //TIM1->CCR1=70; // 1us при 1кГц
-	  //TIM1->CCR1=360; // 5us при 1кГц
+	  //TIM1->CCR1=70; // 1us при 1кГц htim1.Init.Period = 65535;
+	  //TIM1->CCR1=360; // 5us при 1кГц htim1.Init.Period = 65535;
   }
   /* USER CODE END 3 */
 }
@@ -184,30 +187,30 @@ static void MX_TIM1_Init(void)
     if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11)==GPIO_PIN_SET)
     {
   	  htim1.Init.Prescaler = 100; // 10 Hz
+  	htim1.Init.Period = 65535;
     }
     if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_10)==GPIO_PIN_SET)
     {
     	htim1.Init.Prescaler = 35; // 30 Hz
+    	htim1.Init.Period = 65535;
     }
     if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_1)==GPIO_PIN_SET)
     {
     	htim1.Init.Prescaler = 10; // 100 Hz
+    	htim1.Init.Period = 65535;
     }
     if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0)==GPIO_PIN_SET)
     {
     	htim1.Init.Prescaler = 2; // 366 Hz
+    	htim1.Init.Period = 65535;
     }
     else
     {
-    	htim1.Init.Prescaler = 1; // 550 Hz
+    	htim1.Init.Prescaler = 1; // 1250 Hz
+    	htim1.Init.Period = 28780;
     }
-  	//htim1.Init.Prescaler = 100; // 10 Hz
-  	//htim1.Init.Prescaler = 35; // 30 Hz
-  	//htim1.Init.Prescaler = 10; // 100 Hz
-  	//htim1.Init.Prescaler = 2; // 366 Hz
-  	//htim1.Init.Prescaler = 1; // 550 Hz
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 65535;
+  //htim1.Init.Period = 65535;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -263,8 +266,14 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOD_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  /*Configure GPIO pins : PA4 PA5 PA6 PA7 */
+  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PB0 PB1 PB10 PB11 */
   GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_10|GPIO_PIN_11;
